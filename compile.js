@@ -34,10 +34,11 @@ class Compile {
             // 类型判断
             if(this.isElement(node)) {
                 // 元素
-                console.log('编译元素' + node.nodeName);
+                // console.log('编译元素' + node.nodeName);
             } else if(this.isInterpolation(node)) {
                 // 文本
-                console.log('编译文本' + node.textContent);
+                // console.log('编译文本' + node.textContent);
+                this.compileText(node);
             }
 
             // 递归子节点
@@ -54,5 +55,10 @@ class Compile {
     // 差值文本
     isInterpolation(node) {
         return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
+    }
+
+    compileText(node) {
+        console.log(RegExp.$1);
+        node.textContent = this.$vm.$data[RegExp.$1];
     }
 }
