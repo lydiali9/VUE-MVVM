@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>defineProperty</title>
+</head>
+<body>
+<div id="app">
+    <!-- 双向数据绑定，靠的是表单 -->
+    <p id="name"></p>
+</div>
+<!--<script src="node_modules/vue/dist/vue.js"></script>-->
+<script>
+    var obj = {};
+
+    Object.defineProperty(obj, 'name', {
+        get: function() {
+            return document.querySelector('#name').innerHTML;
+        },
+        set: function(val) {
+            document.querySelector('#name').innerHTML = val;
+        }
+    });
+
+    obj.name = 'Jerry';
+</script>
+</body>
+</html>
