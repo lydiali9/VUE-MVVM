@@ -14,12 +14,12 @@ class KVue {
         this.observe(this.$data);
 
         // 模拟一下watcher的创建过程
-        new Watcher();
-        this.$data.test;
-        new Watcher();
-        this.$data.foo.bar;
+        // new Watcher();
+        // this.$data.test;
+        // new Watcher();
+        // this.$data.foo.bar;
 
-        // new Compile(options.el, this);
+        new Compile(options.el, this);
     }
 
     observe(value) {
