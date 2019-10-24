@@ -35,6 +35,22 @@ class Compile {
             if(this.isElement(node)) {
                 // 元素
                 // console.log('编译元素' + node.nodeName);
+                // 查找k-，@，：开头的指令
+                const nodeAttrs = node.attributes;
+                Array.from(nodeAttrs).forEach(attr => {
+                    const attrName = attr.name; // 属性名
+                    const exp = attr.value; // 属性值
+                    if(this.isDirective(attrName)) {
+                        // k-text
+                        const dir = attrName.substring(2);
+                        // 执行指令
+                        this[dir] && this[dir](node, this.$vm, exp); // text(node, this.$vm, exp)
+                    }
+                    if(this.isEvent(attrName)) {
+                        const dir = attrName.substring(1); // @click
+                        this.eventHandler(node, this.$vm, exp, dir);
+                    }
+                })
             } else if(this.isInterpolation(node)) {
                 // 文本
                 // console.log('编译文本' + node.textContent);
@@ -48,6 +64,68 @@ class Compile {
         })
     }
 
+    // 更新函数
+    update(node, vm, exp, dir) {
+        const updaterFn = this[dir + 'Updater'];
+        // 初始化
+        updaterFn && updaterFn(node, vm[exp]);
+        // 依赖收集
+        new Watcher(vm, exp, function (value) {
+            updaterFn && updaterFn(node, value);
+        });
+    }
+
+    compileText(node) {
+        console.log(RegExp.$1);
+        this.update(node, this.$vm, RegExp.$1, 'text');
+    }
+
+    text(node, vm, exp) {
+        this.update(node, vm, exp, 'text');
+    }
+
+    // 双向绑定的处理
+    model(node, vm, exp) {
+        // 指定input的value属性
+        this.update(node, vm, exp, 'model');
+        // 视图对于模型的响应
+        node.addEventListener('input', e => {
+            vm[exp] = e.target.value;
+        })
+    }
+
+    html(node, vm, exp) {
+        this.update(node, vm, exp, 'html');
+    }
+
+    htmlUpdater(node, value) {
+        node.innerHTML = value;
+    }
+
+    modelUpdater(node, value) {
+        node.value = value;
+    }
+
+    textUpdater(node, value) {
+        node.textContent = value;
+    }
+
+    eventHandler(node, vm, exp, dir) {
+        // @click="onClick"
+        const fn = vm.$options.methods && vm.$options.methods[exp]; // vm.$options.method[exp] == onClick
+        if(dir && fn) {
+            node.addEventListener(dir, fn.bind(vm));
+        }
+    }
+
+    isDirective(attr) {
+        return attr.indexOf('k-') == 0;
+    }
+
+    isEvent(attr) {
+        return attr.indexOf('@') == 0;
+    }
+
     isElement(node) {
         return node.nodeType === 1;
     }
@@ -55,10 +133,5 @@ class Compile {
     // 差值文本
     isInterpolation(node) {
         return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
-    }
-
-    compileText(node) {
-        console.log(RegExp.$1);
-        node.textContent = this.$vm.$data[RegExp.$1];
     }
 }
