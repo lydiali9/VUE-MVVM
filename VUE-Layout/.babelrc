@@ -1,0 +1,28 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "modules": false,
+                "targets":
+                {
+                    "browsers": ["> 1%", "last 2 versions", 'not ie <= 8']
+                }
+            }
+        ],
+        "stage-2"
+    ],
+    "plugins": [
+        'transform-es2015-modules-commonjs',
+        'transform-vue-jsx',
+        'transform-runtime' // 解决Promise打包后对打包环境的一个污染
+        // [
+        //     "component",
+        //     {
+        //         "libraryName": "element-ui",
+        //         "styleLibraryName": "~theme"
+        //     }
+        // ]
+    ]
+
+}
