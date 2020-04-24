@@ -3,7 +3,6 @@
 // 配置需要复制的目录和排除打包的文件
 // copyPluginArr和externalsObj需要对应
 const utils = require('./utils');
-console.log('==================utils====================');
 
 module.exports = {
 	// 需要复制的文件目录

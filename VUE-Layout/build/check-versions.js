@@ -4,9 +4,6 @@ var semver = require('semver') // 处理版本信息
 var packageConfig = require('../package.json')
 var shell = require('shelljs')
 
-console.log('==================check-versions.js====================');
-
-
 function exec (cmd) {
   return require('child_process').execSync(cmd).toString().trim()
 }

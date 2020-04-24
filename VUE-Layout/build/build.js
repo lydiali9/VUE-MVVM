@@ -2,7 +2,7 @@
 require('./check-versions')();
 process.env.NODE_ENV = 'production';
 // 在部署环境 必须对process.env.NODE_ENV设置，否则在node执行的文件中找不到该对象属性，DefinePlugin中在配置的JS文件中找不到
-console.log('==================build====================');
+console.log('==================build====================' + JSON.stringify(process.env['http_env']));
 
 var fs = require('fs');
 var path = require('path');

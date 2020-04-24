@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dll": "webpack --config build/webpack.dll.conf.js",
-    "stg": "cross-env --inspect http_env=stg webpack-dev-server --config build/webpack.dev.conf.js",
-    "prd": "cross-env http_env=prd webpack-dev-server --config build/webpack.dev.conf.js",
-    "build-stg": "cross-env http_env=stg node build/build.js",
+    "server-fat": "cross-env http_env=stg webpack-dev-server --config build/webpack.dev.conf.js",
+    "server-prd": "cross-env http_env=prd webpack-dev-server --config build/webpack.dev.conf.js",
+    "build-fat": "cross-env http_env=stg node build/build.js",
     "build-prd": "cross-env http_env=prd node build/build.js"
   },
   "keywords": [],

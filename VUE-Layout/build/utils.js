@@ -35,6 +35,7 @@ const cssLoaders = function (options) {
   }
 
   var postcssLoader = {
+    // 和loader结合，对于抽离的css文件配置自动添加浏览器的前缀，然后配置.postcssrc.js文件
     loader: 'postcss-loader',
     options: {
       sourceMap: options.sourceMap

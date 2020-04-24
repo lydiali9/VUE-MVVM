@@ -4,8 +4,6 @@ const config = require('../config');
 const isProduction = process.env.NODE_ENV === 'production'
 const sourceMapEnabled = isProduction ? config.build.productionSourceMap : config.dev.cssSourceMap
 
-console.log('==================vue-loader.conf.js====================');
-
 module.exports = {
   loaders: utils.cssLoaders({
     sourceMap: sourceMapEnabled,

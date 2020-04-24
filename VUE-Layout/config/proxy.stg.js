@@ -1,7 +1,5 @@
 'use strict';
 
-console.log('==============proxy.stg.js================');
-
 module.exports = {
 	'/emp': {
 		target: 'http://localhost:8080',

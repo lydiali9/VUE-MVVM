@@ -4,8 +4,6 @@ var path = require('path')
 var httpEnv = process.env['http_env']
 var proxyConf = require(`./proxy.${httpEnv}.js`)
 
-console.log('==============config/index.js================');
-
 module.exports = {
     // 本地开发环境的相关配置
   dev: {

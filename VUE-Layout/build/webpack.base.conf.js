@@ -18,6 +18,17 @@ function resolve(dir) {
 }
 
 // eslink ...
+const createLintingRule = () => ({
+    // loader默认从右向左执行，从下往上执行
+    test: /\.(js|vue)$/,
+    loader: 'eslint-loader',
+    enforce: 'pre', // 强制让这个loader在下面的loader之前执行
+    include: [resolve('src'), resolve('test')],
+    options: {
+        formatter: require('eslint-friendly-formatter'),
+        emitWarning: !config.dev.showEslintErrorsInOverlay
+    }
+})
 
 // 在当前项目中解析目录
 module.exports = {
@@ -31,6 +42,7 @@ module.exports = {
     },
     module:{
         rules:[
+            ...(config.dev.useEslint ? [createLintingRule()] : []),
             {
                 test: /\.vue$/,
                 loader: "vue-loader",
@@ -46,6 +58,8 @@ module.exports = {
             },
             {
                 test: /\.js$/,
+                // 当有设置时，指定的目录将用来缓存 loader 的执行结果。之后的 webpack 构建，将会尝试读取缓存，来避免在每次执行时，可能产生的、高性能消耗的 Babel 重新编译过程
+                // loader: 'babel-loader?cacheDirectory',
                 loader: 'babel-loader',
                 include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
             },
