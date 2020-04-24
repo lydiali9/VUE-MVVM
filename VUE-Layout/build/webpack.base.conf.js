@@ -120,7 +120,7 @@ module.exports = {
         // 考虑到也许做离线包使用，所以只移动再html文件中静态引入的文件，应该先删除该文件夹再复制
         new CopyWebpackplugin(noPackConf.copyPluginArr)
     ],
-    // exterals: noPackConf.externalsObj,
+    externals: noPackConf.externalsObj,
     node: {
         setImmediate: false,
         dgram: 'empty',
