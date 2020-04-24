@@ -17,7 +17,7 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
-// eslink ...
+// eslint ...
 const createLintingRule = () => ({
     // loader默认从右向左执行，从下往上执行
     test: /\.(js|vue)$/,
@@ -30,6 +30,7 @@ const createLintingRule = () => ({
     }
 })
 
+// 注释：loader分为： pre前面执行的loader，normal普通的loader，内联loader，post后置loader
 // 在当前项目中解析目录
 module.exports = {
     context: path.resolve(__dirname, '../'),
@@ -71,7 +72,7 @@ module.exports = {
             //     },
             //     include: [resolve('src/assets/libs/custom')]
             // },
-            // //支持css
+            // // 支持css
             // {
             //     test:/\.css$/,
             //     use:ExtractTextWebpackPlugin.extract({

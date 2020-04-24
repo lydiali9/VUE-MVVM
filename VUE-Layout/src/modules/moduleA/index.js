@@ -1,8 +1,11 @@
-import App from "./App.vue"
-import router from "./router"
-import Vue from "vue"
+'use strict';
+import App from "./App.vue";
+import router from "./router";
+import Vue from "vue";
+import $ from 'expose-loader?$!jquery' // 内联loader
+console.log('====13123123=====' + window.$);
 
-require('../main')
+require('../main');
 // import 'isomorphic-fetch'
 
 new Vue({
